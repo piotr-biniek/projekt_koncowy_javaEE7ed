@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+             
+                <h:form>
+                    
+                    <h:outputLabel value="#{msg['forms.listofadmins']}"/>
+                    <p:growl id="growl" showDetail="true" sticky="false" >
+                        <p:autoUpdate />
+
+                    </p:growl>
+
+                    <p:dataTable id="admintable" var="iteratorAdmin" value="#{adminListViewBean.allAdministrator}" rows="10"
+                                  paginator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                  rowsPerPageTemplate="10,20,50">
+                        <p:column headerText="#{msg['forms.registerorganiser.firmname']}">
+                            <h:outputText value="#{iteratorAdmin.adminName}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['forms.email']}">
+                            <h:outputText value="#{iteratorAdmin.email}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['forms.phone']}">
+                            <h:outputText value="#{iteratorAdmin.phone}" />
+                        </p:column>
+                        
+                                             
+
+                    </p:dataTable>
+                    <p:commandButton value="#{msg['buttons.index']}" action="index" />
+                               
+
+
+
+
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+
+                        
+                        
+                          <!--<p:calendar value="#{iteratorAdmin.dateOfStart}"  pattern="dd/MM/yyyy HH:mm" />-->
+                        
+<!--                        
+                                                <f:facet name="paginatorTopLeft">
+                                                    <p:commandButton type="button" icon="fa fa-sync" />
+                                                </f:facet>
+                        
+                                                <f:facet name="paginatorBottomRight">
+                                                    <p:commandButton type="button" icon="fa fa-cloud-upload" />
+                                                </f:facet>-->

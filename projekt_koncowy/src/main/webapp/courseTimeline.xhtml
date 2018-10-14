@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./template.xhtml">
+
+        <ui:define name="content">
+            <h:body>
+                <h:form>      
+                    <p:growl id="growl" showSummary="true" showDetail="true">
+                        <p:autoUpdate />
+                    </p:growl>
+
+                    <p:timeline id="timeline" value="#{courseTimelineView.model}" height="250px"
+                                selectable="#{courseTimelineView.selectable}"
+                                zoomable="#{courseTimelineView.zoomable}"
+                                moveable="#{courseTimelineView.moveable}"
+                                stackEvents="#{courseTimelineView.stackEvents}"
+                                axisOnTop="#{courseTimelineView.axisOnTop}"
+                                eventStyle="#{courseTimelineView.eventStyle}"
+                                showCurrentTime="#{courseTimelineView.showCurrentTime}"
+                                showNavigation="#{courseTimelineView.showNavigation}"
+                                start="#{courseTimelineView.date}"
+                                zoomMin="2000000000"
+                                animate="true">
+                        <p:ajax event="select" listener="#{courseTimelineView.onSelect}" update="info buttonDetails">
+                        </p:ajax>
+                    </p:timeline>
+                    <p> </p>
+                    <p:outputLabel id="info" value="#{courseTimelineView.selectedCoursValue}"/>
+                    <p> </p>
+                    <p:commandButton id="buttonDetails" value="#{msg['buttons.details']}" disabled="#{!courseTimelineView.showDetailsButton}" action="courseDetails" />
+
+
+
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

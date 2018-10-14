@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+    <!--////////////// themy prime faces ///////////////-->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>#{themeSwitcherBean.theme}</param-value>
+    </context-param>  
+    <!--/////////////////////////////-->
+    <context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>0</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resourceBundle.path</param-name>
+        <param-value>i18n.messages</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+  
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbcPiotrRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/formLogin.xhtml</form-login-page>
+            <form-error-page>/faces/formLoginError.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>Runner</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>Organiser</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>Administrator</role-name>
+    </security-role>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/error/error403.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/faces/error/error403.xhtml</location>   
+    </error-page>
+   
+    <error-page>
+        <error-code>404</error-code>
+        <location>/faces/error/error404.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>501</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>502</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>503</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>504</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>505</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>506</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>507</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <error-code>508</error-code>
+        <location>/faces/error/error5xx.xhtml</location>   
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/faces/error/failure.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/faces/error/failure.xhtml</location>
+    </error-page>
+    <!--///////////////////////  naprawa usterki w wersji 62 oraz szybsze renderowanie////////////-->
+    <context-param>
+        <param-name>primefaces.MOVE_SCRIPTS_TO_BOTTOM</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!--/////////////////////////// pomijanie komentarzy w xml (z metodami) ///////////////////////////-->
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+        <!--        <description>
+            pomijanie komentarzy w xhtml
+        </description>-->
+    </context-param>
+
+
+    <security-constraint>
+        <display-name>LoginPage</display-name>
+        <web-resource-collection>
+            <web-resource-name>LoginPage</web-resource-name>
+            <description/>
+            <url-pattern>/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint> 
+       
+           
+
+    </security-constraint>
+</web-app>

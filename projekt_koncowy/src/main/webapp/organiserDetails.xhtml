@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" sticky="false" >
+                        <p:autoUpdate />
+                    </p:growl>
+
+                    <p:panelGrid columns="2" columnClasses="label, label" style="width: 600px">
+                        <f:facet name = "header" >
+                            <h:outputText value = " ${msg['title.organiserdetails']}" />
+                        </f:facet>
+
+                        <h:outputText value="#{msg['forms.registerorganiser.firmname']} "/>
+                        <h:outputText value="#{organiserDetailsBean.org.organiserName}"  />
+
+
+                        <h:outputText value="#{msg['forms.email']}/Login: *" />
+                        <h:outputText value="#{organiserDetailsBean.org.email}" />
+
+
+
+                        <h:outputText value="#{msg['forms.phone']} *" />
+                        <h:outputText value="#{organiserDetailsBean.org.phone}"/>
+
+
+                        <h:outputText value="#{msg['forms.registerorganiser.street']} " />
+                        <h:outputText value="#{organiserDetailsBean.org.adresStreet}" />
+
+                        <h:outputText value="#{msg['forms.registerorganiser.postalcode']}" />
+                        <h:outputText value="#{organiserDetailsBean.org.adresZipCode}" />
+
+                        <h:outputText value="#{msg['forms.registerorganiser.city']} " />
+                        <h:outputText value="#{organiserDetailsBean.org.adresCity}" />
+
+                    </p:panelGrid>
+
+                    <p:commandButton value="#{msg['menu.listoforganisers']}" action="#{organiserDetailsBean.back()}"/>
+                    <p:commandButton value="#{msg['buttons.edit']}" action="#{organiserDetailsBean.editOrganiser()}" rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Administrator')}"/>
+                    <p:commandButton value="#{msg['buttons.index']}" action="index"/>
+                    <p:commandButton value="#{msg['buttons.organiserruns']}" action="#{organiserDetailsBean.listOfOrganiserRuns()}"   />
+
+
+                    <p:commandButton value="#{msg['buttons.delete']}" action="#{organiserDetailsBean.deleteViewedOrganizer()}" icon="ui-icon-close" rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Administrator') }">
+                        <p:confirm header="#{msg['messages.confirmdelete.title']}" message="#{msg['messages.confirmdelete.text']}" icon="ui-icon-alert"  />
+                    </p:commandButton>
+                    <p:confirmDialog id="dialog" global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="#{msg['buttons.yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['buttons.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+        <h:form>
+            <h:commandLink action="#{organiser.listSetup}" value="Show All Organiser Items"/>
+        </h:form>
+    </body>
+
+</html>

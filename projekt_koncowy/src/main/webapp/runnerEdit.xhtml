@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" sticky="false" >
+                        <p:autoUpdate />
+                    </p:growl>
+
+                    <p:panelGrid columns="2" columnClasses="label, value">
+                       <f:facet name = "header" >
+                            <h:outputText value = " ${msg['title.runeredit']}" />
+                        </f:facet>
+                    
+                        <h:outputText value="#{msg['forms.registerrunner.fname']}:* " />
+                        <p:inputText value="#{runnerEditBean.runner.firstName}" required="true" />
+
+                        <h:outputText value="#{msg['forms.registerrunner.lname']} " />
+                        <p:inputText value="#{runnerEditBean.runner.lastName}" required="true" />
+
+
+                        <h:outputText value= "#{msg['forms.registerrunner.birthdate']} "/>
+                        <p:calendar value="#{runnerEditBean.runner.dateOfBirth}"  size="10" pattern="dd-MM-yyyy" mask="true" required="true"/>
+                        
+                        
+                         <p:outputLabel value="#{msg['forms.registerrunner.sex']}:"/>
+                        <p:selectOneMenu value="#{runnerEditBean.runner.isMale}" id="sex" label="Płeć" required="true">
+                            <f:selectItem itemLabel="#{msg['forms.runner.sexmale']}" itemValue="true"/>
+                            <f:selectItem itemLabel="#{msg['forms.runner.sexfemale']}" itemValue="false"/>
+                        </p:selectOneMenu>
+                         
+                            
+                         <p:outputLabel  value="#{msg['forms.email']} " />
+                        <p:outputLabel  value="#{runnerEditBean.runner.email}"  />
+
+                          <p:outputLabel value="#{msg['forms.phone']} " />
+                          <p:inputText value="#{runnerEditBean.runner.phone}" required="true">
+                           <p:keyFilter regEx="/[0-9-]/i"/>
+                          </p:inputText>
+                         
+
+
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{msg['main.page']}" action="index" immediate="true"/>
+                    <p:commandButton value="#{msg['buttons.save']}" action="#{runnerEditBean.save()}"/>
+                   
+
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+        <h:form>
+            <h:commandLink action="#{course.listSetup}" value="Show All Course Items"/>
+        </h:form>
+    </body>
+
+</html>
+
+
+
+<!--                        <h:outputText value="#{msg['forms.addcours.name']} "/>
+   <p:inputText value="#{courseDetailsBean.courseControler.viewedCourse.name}" styleClass="outputLabel"/>
+
+   <h:outputText value="#{msg['forms.addcours.shortname']} " />
+   <p:inputText value="#{courseDetailsBean.courseControler.viewedCourse.shortName}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.startday']} "/>
+   <p:d value="#{courseDetailsBean.courseControler.viewedCourse.dateOfStart}" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.addcours.distance']} "/>
+   <h:inputText value="#{courseDetailsBean.courseControler.viewedCourse.distance}" styleClass="outputLabel"/>
+
+   <p:outputLabel  value="#{msg['forms.addcours.runnerslimit']} " />
+   <h:inputText  value="#{courseDetailsBean.courseControler.viewedCourse.runnersLimit}"  />
+
+   <p:outputLabel  value="#{msg['forms.addcours.cityofcours']} " />
+   <p:inputText  value="#{courseDetailsBean.courseControler.viewedCourse.cityOfCours}" />
+
+
+   <h:outputText value= "#{msg['forms.addcours.climb']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.climb}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.descent']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.descent}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.officeplace']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.cityOfRunOffice}" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.addcours.officeaddress']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.addressOfRunOffice}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.addinfo']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.info}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.organiser']} "/>
+   <h:outputText value="organizer" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.email']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.email}" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.phone']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.phone}" styleClass="outputLabel"/>
+
+
+-->

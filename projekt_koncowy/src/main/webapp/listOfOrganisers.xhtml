@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+             
+                <h:form>
+                    
+                    <h:outputLabel value="#{msg['forms.listoforganizers']}"/>
+                    <p:growl id="growl" showDetail="true" sticky="false" >
+                        <p:autoUpdate />
+
+                    </p:growl>
+
+                    <p:dataTable id="organiserstable" var="iteratorOrganiser" value="#{dtListOfOrganisers.uzerControler.allOrganisers}" rows="10"
+                                  paginator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                  rowsPerPageTemplate="10,20,50">
+                        <p:column headerText="#{msg['forms.registerorganiser.firmname']}">
+                            <h:outputText value="#{iteratorOrganiser.organiserName}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['forms.registerorganiser.city']}">
+                            <h:outputText value="#{iteratorOrganiser.adresCity}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['forms.email']}">
+                         <h:outputText value="#{iteratorOrganiser.email}" />
+                        </p:column>
+                        
+                        <p:column headerText="#{msg['forms.actions']}">
+                            <p:commandButton value="#{msg['buttons.details']}" action="#{dtListOfOrganisers.setViewed(iteratorOrganiser)}"/>
+                          
+                            <p:commandButton value="#{msg['buttons.edit']}" action="#{dtListOfOrganisers.editOrganiser(iteratorOrganiser)}" rendered="#{equest.isUserInRole('Administrator')}"/>
+                           
+
+                            <p:commandButton value="#{msg['buttons.delete']}" update="organiserstable" action="#{dtListOfOrganisers.delete(iteratorOrganiser)}" rendered="#{equest.isUserInRole('Administrator')}">
+                                <p:confirm header="#{msg['messages.confirmdelete.title']}" message="#{msg['messages.confirmdelete.text']}" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <!--<p:ajax event=""-->
+                                <p:commandButton value="#{msg['buttons.yes']}" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="#{msg['buttons.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                
+                            </p:confirmDialog>
+
+
+                        </p:column>                        
+
+                    </p:dataTable>
+
+
+
+
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+
+                        
+                        
+                          <!--<p:calendar value="#{iteratorOrganiser.dateOfStart}"  pattern="dd/MM/yyyy HH:mm" />-->
+                        
+<!--                        
+                                                <f:facet name="paginatorTopLeft">
+                                                    <p:commandButton type="button" icon="fa fa-sync" />
+                                                </f:facet>
+                        
+                                                <f:facet name="paginatorBottomRight">
+                                                    <p:commandButton type="button" icon="fa fa-cloud-upload" />
+                                                </f:facet>-->

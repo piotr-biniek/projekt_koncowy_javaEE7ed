@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="topMenu">
+        <p:growl id="growl" showDetail="true" sticky="false" >  
+            <p:autoUpdate />
+        </p:growl>
+
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <div align="left">
+                        <p:commandLink value="#{msg['app.name']}"  id="mainPage" action="/index" immediate="true"/><br/>
+
+
+                    </div>
+                </td>
+                <td>
+                    <div align="right">
+
+                        <h:panelGrid  id="buttonsGroup" columns="3" cellspacing="5">
+
+                            <p:outputLabel value="#{msg['logged.user']} #{aplicationControlerBean.name}"  rendered="#{aplicationControlerBean.testButtons or  not empty request.remoteUser}"/> 
+
+                            <p:menuButton  value="#{msg['logged.user.options']}" rendered="#{aplicationControlerBean.testButtons or  not empty request.remoteUser}">
+                                <p:menuitem value="#{msg['logged.user.editdata']}" action="#{aplicationControlerBean.editUzer()}"  icon="ui-icon-arrowrefresh-1-w"/>
+                                <p:menuitem value="#{msg['logged.user.editpassword']}" action="/changePassword" />
+                            </p:menuButton>
+
+                            <p:commandButton value="#{msg['menu.loginpage']}"  id="login" action="/formLogin" rendered="#{aplicationControlerBean.testButtons or empty request.remoteUser}"/>
+                            <p:commandButton value="#{msg['menu.logout']}" update="buttonsGroup" id="logout"   immediate="true"
+                                             rendered="#{aplicationControlerBean.testButtons or not empty request.remoteUser}"   >
+                                <p:ajax listener="#{aplicationControlerBean.resetSession()}" />
+                            </p:commandButton>
+                            <!--action="#{aplicationControlerBean.resetSession()}"-->
+                                <!--action="#{aplicationControlerBean.resetSession()}"--> 
+                            <!--<p:commandButton value="TestEXC"  action="#{aplicationControlerBean.starttest()}"  rendered="#{aplicationControlerBean.testButtons}"/>-->
+                        </h:panelGrid>
+
+
+                        <h:panelGrid columns="2" cellpadding="0">
+                            <p:outputLabel value="#{msg['menu.themes']}" />
+                            <p:themeSwitcher id="defaultSwitcher" value="#{themeSwitcherBean.theme}">
+                                <f:selectItems value="#{themeSwitcherBean.themes}" />
+                                <p:ajax listener="#{themeSwitcherBean.saveTheme}" />
+                            </p:themeSwitcher>
+
+                        </h:panelGrid>
+
+                    </div>
+                </td> 
+            </tr>
+        </table>    
+    </h:form>
+
+</ui:composition>
+
+<!--                                <p:commandButton value="#{msg['menu.logout']}" id="logout"  action="/index"  immediate="true"
+                                                 rendered="#{aplicationControlerBean.testButtons or not empty request.remoteUser}" update="topPanel"  >-->
+
+                                <!--<f:selectItem itemLabel="Choose Theme" itemValue=""  value="#{aplicationControlerBean.setTheme(theme.name)}"/>-->
+<!--onchange="#{aplicationControlerBean.setTheme()}"-->
+<!--            <p:outputLabel for="basic" value="#{msg['menu.themes']}" />
+<p:themeSwitcher id="basic" style="width:165px" value="#{aplicationControlerBean.setTheme(theme.name)}">
+
+    <f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+</p:themeSwitcher>-->

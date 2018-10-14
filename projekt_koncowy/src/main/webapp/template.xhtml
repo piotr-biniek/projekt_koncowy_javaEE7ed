@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <!--Ustawienie zakazu buforowania strony dla HTTP 1.1+-->
+                <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate" />
+                <!--Ustawienie zakazu buforowania strony dla HTTP 1.0-->
+                <meta http-equiv="Pragma" content="no-cache" />
+
+                <title>Portal biegowy</title>
+            </f:facet>
+
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="false" closable="false" collapsible="true">
+                    <ui:include src="/templateNorth.xhtml" />
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <ui:insert name="content">Content</ui:insert>
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="60" closable="false" collapsible="true">
+                    <h:form>
+                        
+
+                        <center>
+                            <p:commandLink value="#{msg['menu.contactadmin']} "  id="mainPage" action="listOfAdmins" immediate="true"/>
+                            <br/>
+                            #{msg["app.name"]}  
+                            <br/>
+
+                                                   </center>
+
+
+
+                    </h:form>
+                </p:layoutUnit>
+
+
+                <p:layoutUnit position="west" size="220"  collapsible="true">
+                    <ui:include src="/templateMenu.xhtml" />
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+<!--
+<h:panelGrid columns="2" cellpadding="10">
+        <p:outputLabel for="basic" value="Basic:" />
+        <p:themeSwitcher id="basic" style="width:165px">
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+            <f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+        </p:themeSwitcher>
+ 
+        <p:outputLabel for="advanced" value="Advanced:" />
+        <p:themeSwitcher id="advanced" style="width:165px" effect="fade" var="t">
+            <f:selectItem itemLabel="Choose Theme" itemValue="#{null}" />
+            <f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+ 
+            <p:column>
+                <h:outputText styleClass="ui-theme ui-theme-#{t.name}" style="display-block" />
+            </p:column>
+ 
+            <p:column>
+#{t.displayName}
+</p:column>
+</p:themeSwitcher>
+</h:panelGrid>-->

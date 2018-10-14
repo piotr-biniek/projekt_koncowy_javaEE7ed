@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-ejb-jar PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 EJB 3.1//EN" "http://glassfish.org/dtds/glassfish-ejb-jar_3_1-1.dtd">
+<glassfish-ejb-jar>
+    <!--Security mapping na potrzeby run as-->
+    
+<!--    <security-role-mapping>
+        <role-name>Runner</role-name>
+        <group-name>RUNNER</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>Organiser</role-name>
+        <principal-name>nazwa_konkretnego_przypadku</principal-name>
+        <group-name>ORGANISER</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>Administrator</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>-->
+<!--    <enterprise-beans>
+        <ejb>
+            <ejb-name>UzerEndPoint</ejb-name>
+            <ior-security-config>
+                <as-context>
+                    <auth-method>USERNAME_PASSWORD</auth-method>
+                    <realm>nazwa_realma</realm>
+                </as-context>
+            </ior-security-config>
+        </ejb>
+    </enterprise-beans>-->
+</glassfish-ejb-jar>

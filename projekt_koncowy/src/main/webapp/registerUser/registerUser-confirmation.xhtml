@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="../template.xhtml">
+
+            <ui:define name="content">
+                <h2>Confirmation Page</h2>
+                <h:form>
+                    <p:panelGrid columns="2" 
+                                 columnClasses="rightalign-bold,leftalign">
+
+                        <p:outputLabel value="#{msg['forms.registerrunner.fname']} "/>
+                        #{registrationBeanUser.runner.firstName}
+
+                        <p:outputLabel value="#{msg['forms.registerrunner.lname']} "/>
+                        #{registrationBeanUser.runner.lastName}
+
+                        <p:outputLabel value="#{msg['forms.registerrunner.birthdate']} "/>
+                        <p:outputLabel id="label" value=" #{registrationBeanUser.runner.dateOfBirth}">
+<!--                            <f:convertDateTime for="label"  pattern="dd-MM-yyyy"  rendered="true"/>-->
+                        </p:outputLabel>
+
+                        <p:outputLabel value="#{msg['forms.email']} " />
+                        #{registrationBeanUser.runner.email}
+
+                        <p:outputLabel value="#{msg['forms.phone']} " />
+                        #{registrationBeanUser.runner.phone}
+
+
+                        <p:outputLabel value="#{msg['forms.registerrunner.sex']}: "/>
+                        <p:outputLabel rendered="#{aplicationControlerBean.testButtons or registrationBeanUser.runner.isMale}" value="#{msg['forms.sex.male']}"/>
+                         <p:outputLabel rendered="#{aplicationControlerBean.testButtons or not registrationBeanUser.runner.isMale}" value="#{msg['forms.sex.female']}"/>
+
+
+                    </p:panelGrid> 
+
+
+
+<!--                    <p:growl id="growl"  showDetail="true"  sticky="true" /> -->
+                    <p:commandButton value="#{msg['buttons.back']} " action="registerUser" /> 
+                    <p:commandButton value="#{msg['buttons.save']} "  action="#{registrationBeanUser.save()}" />
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

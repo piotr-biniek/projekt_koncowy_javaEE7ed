@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./template.xhtml">
+
+        <ui:define name="content">
+
+            <h:body>
+                <h:form>
+
+                    <p:growl id="growl" sticky="true" showDetail="true">
+                        <p:autoUpdate />
+                    </p:growl>
+                    <p:wizard flowListener="#{adminWizard.onFlowProcess}" nextLabel="#{msg['buttons.next']}" backLabel="#{msg['buttons.back']}">
+                        <!--"-->
+                        <p:messages id="messages" showDetail="true" closable="true">
+                            <p:autoUpdate />
+                        </p:messages>
+                        <p:tab id="personal" title="#{msg['forms.registeradmin.titles.admin']} ">
+                            <p:panel header="#{msg['forms.registeradmin.subtitles.admin']} ">
+
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="#{msg['forms.email']}/Login: *" />
+                                    <p:inputText value="#{adminWizard.admin.email}" required="true" label="Email"/>
+
+                                    <h:outputLabel for="pwd1" value="#{msg['forms.password']}*: " />
+                                    <p:password id="pwd1" value="#{adminWizard.admin.password}" match="pwd2" label="Password 1" required="true"  feedback="true"/>
+
+
+                                    <h:outputLabel for="pwd2" value="#{msg['forms.password2']}*: "  />
+                                    <p:password id="pwd2"  label="Password 2" required="true" />
+
+                                    <h:outputText value="#{msg['forms.idAdmin']}:*" />
+                                    <p:inputText value="#{adminWizard.admin.adminName}" required="false"/>
+
+                                    <h:outputText value="#{msg['forms.phone']} *" />
+                                    <p:inputText value="#{adminWizard.admin.phone}" required="true"  >
+                                     <p:keyFilter regEx="/[0-9]/i"/>
+                                    </p:inputText>
+
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="confirm" title="#{msg['forms.registeradmin.titles.confirmation']} ">
+                            <p:panel header="#{msg['forms.registeroradmin.subtitles.confirmation']} ">
+                            
+                                <h:panelGrid id="confirmation" columns="2" columnClasses="label, value" width="200" border = "1" cellpadding = "10" cellspacing = "1" >
+                         
+                                        <h:outputText value="#{msg['forms.email']}:" />
+                                        <h:outputText value="#{adminWizard.admin.email}" styleClass="outputLabel"/>
+                                    
+                                        
+                                        <h:outputText value="#{msg['forms.phone']}:" />
+                                        <h:outputText value="#{adminWizard.admin.phone}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="#{msg['forms.idAdmin']}:" />
+                                        <h:outputText value="#{adminWizard.admin.adminName}" />
+
+                                        
+                                </h:panelGrid>
+                                <div align="right">
+                                    <p:commandButton value="#{msg['buttons.submit']} "  update="growl" action="#{adminWizard.save()}"/>
+                                </div>
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

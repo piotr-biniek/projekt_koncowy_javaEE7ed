@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="editCourse">
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                    <h:panelGrid id="tableEdit" columns="3" cellpadding="5"  >
+                        <f:facet name = "header" >
+                            <h:outputText value = " ${msg['title.courseedit']}" />
+                        </f:facet>
+
+                        <h:outputText value="#{msg['forms.addcours.name']}* : " />
+                        <h:inputText id="name"  value="#{courseEditBean.editedCourse.name}" required="true" label="Firstname"/>
+                        <p:message for="name"/>      
+
+
+
+                        <h:outputText value="#{msg['forms.addcours.shortname']}* : " />
+                        <h:inputText id="shortname" value="#{courseEditBean.editedCourse.shortName}" required="true" label="Lastname"/>
+                        <p:message for="shortname" />
+
+                        <h:outputText value="#{msg['forms.addcours.distance']}* : " />
+                        <p:inputNumber id="distance" value="#{courseEditBean.editedCourse.distance}" decimalPlaces="2" required="true"/>
+                        <p:message for="distance" />
+
+
+                        <p:outputLabel for="datetime" value="#{msg['forms.addcours.startday']}* : " />
+                        <p:calendar id="datetime" value="#{courseEditBean.editedCourse.dateOfStart}" pattern="dd/MM/yyyy HH:mm" required="true" mindate="#{courseWizard.today}"/>
+                        <p:message for="datetime" />
+
+                        <p:outputLabel  value="#{msg['forms.addcours.runnerslimit']}* : " />
+                        <p:inputNumber id="runlimit" value="#{courseEditBean.editedCourse.runnersLimit}" decimalPlaces="0" required="true"/>
+                        <p:message for="runlimit" />
+                        <p:outputLabel  value="#{msg['forms.addcours.cityofcours']}* : " />
+                        <p:inputText id="citycours" value="#{courseEditBean.editedCourse.cityOfCours}" required="true"/>
+                        <p:message for="citycours" />
+
+
+                        <h:outputText value="#{msg['forms.addcours.descent']} " />
+                        <p:inputNumber id="descent" value="#{courseEditBean.editedCourse.descent}"  decimalPlaces="0" 
+                                       emptyValue="zero" thousandSeparator=" "/>
+                        <p:message for="descent" />
+
+                        <h:outputText value="#{msg['forms.addcours.climb']} " />
+                        <p:inputNumber id="inputVal" value="#{courseEditBean.editedCourse.climb}" decimalPlaces="0" 
+                                       emptyValue="zero" thousandSeparator=" "/>
+                        <p:message for="inputVal" />
+
+
+
+                        <h:outputText value="#{msg['forms.addcours.officeplace']}* : " />
+                        <p:inputText id="coursecity" value="#{courseEditBean.editedCourse.cityOfRunOffice}" required="true">
+                        </p:inputText>
+                        <p:message for="coursecity"/>
+
+                        <h:outputText value="#{msg['forms.addcours.officeaddress']}* : " />
+                        <p:inputText id="courseoffice" value="#{courseEditBean.editedCourse.addressOfRunOffice}" required="true">
+                        </p:inputText>
+                        <p:message for="courseoffice"/>
+
+                        <h:outputText value="#{msg['forms.email']}* : " />
+                        <p:inputText id="coursemail" value="#{courseEditBean.editedCourse.email}" required="true" label="Email">
+                        </p:inputText>
+                        <h:message for="coursecity"/>
+
+                        <h:outputText value="#{msg['forms.phone']}: "/>
+                        <h:inputText  id="phone" value="#{courseEditBean.editedCourse.phone}" />
+                        <p:message for="phone"/>
+
+                        <h:outputText value="#{msg['forms.addcours.addinfo']}: " />
+                        <p:inputText id="info" value="#{courseEditBean.editedCourse.info}"/>
+                        <p:message for="info"/>
+
+
+
+                    </h:panelGrid>
+                    <h:panelGroup id="pnl"  style="margin-bottom:10px;" >
+                        <p:commandButton value="#{msg['menu.courses.list']}" action="listOfCourses" immediate="true"/>
+                        <p:commandButton id="save" value="#{msg['buttons.save']}" action="#{courseEditBean.save()}"/>
+                    </h:panelGroup>
+                    <p:blockUI block="pnl" trigger="save" />
+
+
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+        <h:form>
+            <h:commandLink action="#{course.listSetup}" value="Show All Course Items"/>
+        </h:form>
+    </body>
+
+</html>
+
+
+
+<!--                        <h:outputText value="#{msg['forms.addcours.name']} "/>
+   <p:inputText value="#{courseDetailsBean.courseControler.viewedCourse.name}" styleClass="outputLabel"/>
+
+   <h:outputText value="#{msg['forms.addcours.shortname']} " />
+   <p:inputText value="#{courseDetailsBean.courseControler.viewedCourse.shortName}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.startday']} "/>
+   <p:d value="#{courseDetailsBean.courseControler.viewedCourse.dateOfStart}" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.addcours.distance']} "/>
+   <h:inputText value="#{courseDetailsBean.courseControler.viewedCourse.distance}" styleClass="outputLabel"/>
+
+   <p:outputLabel  value="#{msg['forms.addcours.runnerslimit']} " />
+   <h:inputText  value="#{courseDetailsBean.courseControler.viewedCourse.runnersLimit}"  />
+
+   <p:outputLabel  value="#{msg['forms.addcours.cityofcours']} " />
+   <p:inputText  value="#{courseDetailsBean.courseControler.viewedCourse.cityOfCours}" />
+
+
+   <h:outputText value= "#{msg['forms.addcours.climb']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.climb}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.descent']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.descent}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.officeplace']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.cityOfRunOffice}" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.addcours.officeaddress']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.addressOfRunOffice}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.addinfo']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.info}" styleClass="outputLabel"/>
+
+
+   <h:outputText value= "#{msg['forms.addcours.organiser']} "/>
+   <h:outputText value="organizer" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.email']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.email}" styleClass="outputLabel"/>
+
+   <h:outputText value= "#{msg['forms.phone']} "/>
+   <h:outputText value="#{courseDetailsBean.courseControler.viewedCourse.phone}" styleClass="outputLabel"/>
+
+
+-->

@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form> 
+                    <p:growl id="growl" showDetail="true" sticky="false" >
+                        <p:autoUpdate />
+                    </p:growl>
+
+                    <p:panelGrid  id="form" columns="2" style="width: 600px">
+                        <f:facet name = "header" >
+                            <h:outputText value = " ${msg['title.coursedetails']}" />
+                        </f:facet>
+                        <p:outputLabel value="#{msg['forms.addcours.name']} "/>
+                        <p:outputLabel value="#{courseDetailsBean.viewedCourse.name}" styleClass="outputLabel"/>
+
+                        <p:outputLabel value="#{msg['forms.addcours.shortname']} " />
+                        <p:outputLabel value="#{courseDetailsBean.viewedCourse.shortName}" styleClass="outputLabel"/>
+
+
+                        <p:outputLabel value= "#{msg['forms.addcours.startday']} "/>
+                        <p:outputLabel value="#{  courseDetailsBean.getOutputDateTime(courseDetailsBean.viewedCourse.dateOfStart)}" styleClass="outputLabel"/>
+
+                        <p:outputLabel value= "#{msg['forms.addcours.distance']} "/>
+                        <p:outputLabel value="#{courseDetailsBean.viewedCourse.distance}" styleClass="outputLabel"/>
+
+                        <p:outputLabel  value="#{msg['forms.addcours.runnerslimit']} " />
+                        <p:outputLabel  value="#{courseDetailsBean.viewedCourse.runnersLimit}"  />
+
+                        <p:outputLabel  value="#{msg['forms.addcours.cityofcours']} " />
+                        <p:outputLabel  value="#{courseDetailsBean.viewedCourse.cityOfCours}" />
+
+
+                        <p:outputLabel value= "#{msg['forms.addcours.climb']} "/>
+                        <p:outputLabel value="#{courseDetailsBean.viewedCourse.climb}" styleClass="outputLabel"/>
+
+
+                        <p:outputLabel value= "#{msg['forms.addcours.descent']} "/>
+                        <p:outputLabel value="#{courseDetailsBean.viewedCourse.descent}" styleClass="outputLabel"/>
+
+
+                        <p:outputLabel for="cityOfRunOffice"  value= "#{msg['forms.addcours.officeplace']} " rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.cityOfRunOffice != null}"/>
+                        <p:outputLabel id="cityOfRunOffice" value="#{courseDetailsBean.viewedCourse.cityOfRunOffice}" rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.cityOfRunOffice != null}"/>
+
+                        <p:outputLabel for="addressOfRunOffice" value= "#{msg['forms.addcours.officeaddress']} " rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.cityOfRunOffice != null}"/>
+                        <p:outputLabel id="addressOfRunOffice" value="#{courseDetailsBean.viewedCourse.addressOfRunOffice}" rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.addressOfRunOffice != null}"/>
+
+
+                        <p:outputLabel for="info" value= "#{msg['forms.addcours.addinfo']} " rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.info != null}"/>
+                        <p:outputLabel id="info" value="#{courseDetailsBean.viewedCourse.info}" rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.info != null}"/>
+
+                        <p:outputLabel value= "#{msg['forms.addcours.organiser']} "/>
+                        <p:outputLabel value="#{courseDetailsBean.viewedCourse.organiserOfTheCourse.organiserName}" styleClass="outputLabel"/>
+
+
+                        <p:outputLabel for="email" value= "#{msg['forms.email']}" rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.email != null}"/>
+                        <p:outputLabel id="email" value="#{courseDetailsBean.viewedCourse.email}" styleClass="outputLabel" rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.email != null}"/>
+
+                        <p:outputLabel for="phone" value= "#{msg['forms.phone']} " rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.phone != null}"/>
+                        <p:outputLabel id="phone" value="#{courseDetailsBean.viewedCourse.phone}"  rendered="#{aplicationControlerBean.testButtons or courseDetailsBean.viewedCourse.phone != null}"/>
+
+
+                    </p:panelGrid>
+
+                    <h:panelGroup id="pnl"  style="margin-bottom:10px;" >
+
+
+                        <p:commandButton value="#{msg['buttons.courseslist']}" action="#{courseDetailsBean.back()}"/>
+
+                        <p:commandButton value="#{msg['buttons.organiserdata']}" action="#{courseDetailsBean.setViewOrganiser(courseDetailsBean.viewedCourse.organiserOfTheCourse)}"/>
+                        <h:panelGroup id="buttonGrid"  >
+
+                            <p:commandButton  id="bRegister" value="#{msg['buttons.registerrunner']}" update="buttonGrid"  
+                                              rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Runner') 
+                                                          and empty courseDetailsBean.coursePaymentForLoggedRunner and not 
+                                                          courseDetailsBean.vievedCourseAfterCurrentDate and courseDetailsBean.avalibleRunnersLimit }"   
+                                              action="#{courseDetailsBean.signRunnerFor()}"    />
+
+
+
+                            <p:commandButton id="bResign"  value="#{msg['buttons.resign']}" rendered="#{aplicationControlerBean.testButtons 
+                                                                    or request.isUserInRole('Runner')  and not  empty courseDetailsBean.coursePaymentForLoggedRunner 
+                                                                    and not courseDetailsBean.vievedCourseAfterCurrentDate}"  
+                                             action="#{courseDetailsBean.signRunnerOut()}" update="buttonGrid" >
+                            </p:commandButton>
+
+                            <p:commandButton rendererType="" id="bPay" value="#{msg['buttons.payment']}"  
+                                             rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Runner') 
+                                                         and not  empty courseDetailsBean.coursePaymentForLoggedRunner and  courseDetailsBean.viewedCourse.paymentRequired 
+                                                         and not courseDetailsBean.vievedCourseAfterCurrentDate}" 
+                                             disabled="#{courseDetailsBean.coursePaymentForLoggedRunner.coursePayed}" 
+                                             action="#{courseDetailsBean.courseControler.payForRun}" update="buttonGrid" >
+
+                            </p:commandButton>
+
+
+                        </h:panelGroup>
+
+
+
+                        <p:commandButton value="#{msg['buttons.getrunners']}" action="listOfParticipants"/>
+                        <p:commandButton value="#{msg['buttons.edit']}" action="#{courseDetailsBean.editCourse()}" 
+                                         rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Organiser') 
+                                                     and courseDetailsBean.courseControler.viewedCourseCreatedByUzer 
+                                                     and not courseDetailsBean.vievedCourseAfterCurrentDate}" />
+
+                        <p:commandButton value="#{msg['buttons.delete']}" action="#{courseDetailsBean.deleteViewedCourse()}" 
+                                         rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Administrator') 
+                                                     or request.isUserInRole('Organiser') and courseDetailsBean.courseControler.viewedCourseCreatedByUzer 
+                                                     and not courseDetailsBean.vievedCourseAfterCurrentDate}">
+
+                            <p:confirm header="#{msg['messages.confirmdelete.title']}" message="#{msg['messages.confirmdelete.text']}" icon="ui-icon-alert"  />
+                        </p:commandButton>
+
+                        <p:confirmDialog id="dialog" global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="#{msg['buttons.yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['buttons.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <h:panelGroup>
+
+                            <p:outputLabel value="#{msg['forms.noplaces']}"  rendered="#{aplicationControlerBean.testButtons 
+                                                    or request.isUserInRole('Runner') 
+                                                    and empty courseDetailsBean.coursePaymentForLoggedRunner 
+                                                    and not courseDetailsBean.avalibleRunnersLimit  }" />
+                        </h:panelGroup>                       
+
+
+                    </h:panelGroup>
+                    <p:blockUI block="pnl" trigger="bRegister" />
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+
+</html>
+
+                                          <!--disabled="#{not courseDetailsBean.avalibleRunnersLimit}"-->

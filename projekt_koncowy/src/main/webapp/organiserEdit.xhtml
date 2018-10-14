@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" sticky="false" >
+                        <p:autoUpdate />
+                    </p:growl>
+
+
+                    <p:panelGrid columns="2" columnClasses="label, value" style="width: 900px">
+                            <f:facet name = "header" >
+                            <h:outputText value = " ${msg['title.organiseredit']}" />
+                        </f:facet>
+                        <h:outputText value="#{msg['forms.registerorganiser.firmname']} "/>
+                        <p:inputText value="#{organiserEditBean.org.organiserName}" required="true" />
+
+
+                        <h:outputText value="#{msg['forms.email']}/Login: *" />
+                        <p:outputLabel value="#{organiserEditBean.org.email}"/>
+
+
+
+                        <h:outputText value="#{msg['forms.phone']} *" />
+                        <p:inputText value="#{organiserEditBean.org.phone}" required="true">
+                         <p:keyFilter regEx="/[0-9-]/i"/>
+                        </p:inputText>
+
+
+                        <h:outputText value="#{msg['forms.registerorganiser.street']} " />
+                        <p:inputText value="#{organiserEditBean.org.adresStreet}" />
+
+                        <h:outputText value="#{msg['forms.registerorganiser.postalcode']} " />
+                        <p:inputMask value="#{organiserEditBean.org.adresZipCode}" mask="99-999"/>
+                        
+                        
+
+                        <h:outputText value="#{msg['forms.registerorganiser.city']} " />
+                        <p:inputText value="#{organiserEditBean.org.adresCity}" />
+
+                        </p:panelGrid>
+                    <p:commandButton value="#{msg['forms.courses.listofcourses']}" action="listOforganisers" immediate="true"/>
+                        <p:commandButton value="#{msg['buttons.save']}" action="#{organiserEditBean.save()}"/>
+
+
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+        <h:form>
+            <h:commandLink action="#{course.listSetup}" value="Show All Course Items"/>
+        </h:form>
+    </body>
+
+</html>
+
+

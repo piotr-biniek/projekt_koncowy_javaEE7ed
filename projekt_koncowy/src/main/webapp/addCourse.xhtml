@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="./template.xhtml">
+
+        <ui:define name="content">
+            <h:body>
+                <h:form id="addCourse">
+
+
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                    <p:wizard flowListener="#{courseWizard.onFlowProcess}">
+                        <p:tab id="coursedetails" title="#{msg['forms.addcours.titles.coursedata']}" >
+                            <p:panel header="#{msg['forms.addcours.subtitles.courseinfo']}">
+<!--                                <p:messages />-->
+                                <h:panelGrid columns="3" columnClasses="label, value">
+                                    
+                                    <h:outputText value="#{msg['forms.addcours.name']}* : " />
+                                    <p:inputText id="name" value="#{courseWizard.course.name}" required="true" label="Firstname"/>
+                                     <p:message for="name" />        
+                                    
+
+                                    <h:outputText value="#{msg['forms.addcours.shortname']}* : " />
+                                    <p:inputText id="shortName" value="#{courseWizard.course.shortName}" required="true" label="Lastname"/>
+                                    <p:message for="shortName" />     
+ 
+                                    <h:outputText value="#{msg['forms.addcours.distance']}* : " />
+                                    <p:inputNumber  id="distance" value="#{courseWizard.course.distance}" decimalPlaces="2" required="true"/>
+                                    <p:message for="distance" /> 
+                 
+                                    <p:outputLabel for="datetime" value="#{msg['forms.addcours.startday']}* : " />
+                                    <p:calendar  id="datetime" value="#{courseWizard.course.dateOfStart}" pattern="dd/MM/yyyy HH:mm" required="true" mindate="#{courseWizard.today}"/>
+                                    <p:message for="datetime" /> 
+                                    
+                                    <p:outputLabel  value="#{msg['forms.addcours.runnerslimit']}* : " />
+                                    <p:inputNumber id="limit" value="#{courseWizard.course.runnersLimit}" decimalPlaces="0" required="true"/>
+                                    <p:message for="limit" /> 
+                                    
+                                    <p:outputLabel  value="#{msg['forms.addcours.cityofcours']}* : " />
+                                    <p:inputText id="city" value="#{courseWizard.course.cityOfCours}" required="true"/>
+                                                                        <p:message for="city" /> 
+                                    <p:outputLabel id="payment" value="#{msg['forms.addcours.payment']}:"/>
+                                    <p:selectOneMenu value="#{courseWizard.course.paymentRequired}" label="Platnosc">
+                                 <f:selectItem itemLabel="#{msg['buttons.yes']}" itemValue="true"/>
+                                 <f:selectItem itemLabel="#{msg['buttons.no']}" itemValue="false"/>
+                                    </p:selectOneMenu>
+                                     <p:message for="payment" /> 
+
+                                    <h:outputText value="#{msg['forms.skip']} " />
+                                    <h:selectBooleanCheckbox value="#{courseWizard.skip}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="address" title="#{msg['forms.addcours.titles.courseinfo']}">
+                            <p:panel header="#{msg['forms.addcours.subtitles.about']}">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+
+                                    <h:outputText value="#{msg['forms.addcours.descent']} " />
+                                    <p:inputNumber value="#{courseWizard.course.descent}"  decimalPlaces="0" 
+                                                   emptyValue="zero" thousandSeparator=" "/>
+
+                                    <h:outputText value="#{msg['forms.addcours.climb']} " />
+                                    <p:inputNumber id="inputVal" value="#{courseWizard.course.climb}" decimalPlaces="0" 
+                                                   emptyValue="zero" thousandSeparator=" "/>
+<!--                                    </p:inputNumber>-->
+
+
+                                    <h:outputText value="#{msg['forms.skip']} " />
+                                    <h:selectBooleanCheckbox value="#{courseWizard.skip}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="contact" title="#{msg['forms.addcours.titles.about']} ">
+                            <p:panel header="#{msg['forms.addcours.subtitles.info']} ">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value" width="500">
+
+                                    <h:outputText value="#{msg['forms.addcours.officeplace']}* : " />
+                                    <p:inputText value="#{courseWizard.course.cityOfRunOffice}" />
+                                    <h:outputText value="#{msg['forms.addcours.officeaddress']}* : " />
+                                    <p:inputText value="#{courseWizard.course.addressOfRunOffice}" />
+
+                                    <h:outputText value="#{msg['forms.email']}* : " />
+                                    <p:inputText value="#{courseWizard.course.email}"  label="Email"/>
+
+                                    <h:outputText value="#{msg['forms.phone']}: "/>
+                                    <p:inputText value="#{courseWizard.course.phone}">
+                                     <p:keyFilter regEx="/[0-9-]/i"/>
+                                    </p:inputText>
+
+                                    <h:outputText value="#{msg['forms.addcours.addinfo']}: " />
+                                    <p:inputText value="#{courseWizard.course.info}"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                       
+                         <p:tab id="confirm" title="#{msg['forms.addcours.titles.confirmation']} ">
+                      
+                            <p:panel header="#{msg['forms.addcours.subtitles.confirmation']} ">
+                                <!--                <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">-->
+                                <p:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="#{msg['forms.addcours.name']} "/>
+                                    <h:outputText value="#{courseWizard.course.name}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="#{msg['forms.addcours.shortname']} " />
+                                    <h:outputText value="#{courseWizard.course.shortName}" styleClass="outputLabel"/>
+
+
+                                    <h:outputText value= "#{msg['forms.addcours.startday']} "/>
+                                    <h:outputText value="#{courseWizard.course.dateOfStart}" styleClass="outputLabel"/>
+
+                                    <h:outputText value= "#{msg['forms.addcours.distance']} "/>
+                                    <h:outputText value="#{courseWizard.course.distance}" styleClass="outputLabel"/>
+
+                                    <p:outputLabel  value="#{msg['forms.addcours.runnerslimit']} " />
+                                    <p:outputLabel  value="#{courseWizard.course.runnersLimit}"  />
+                                    
+                                    <p:outputLabel  value="#{msg['forms.addcours.cityofcours']} " />
+                                    <p:outputLabel  value="#{courseWizard.course.cityOfCours}" />
+
+
+                                    <h:outputText value= "#{msg['forms.addcours.climb']} "/>
+                                    <h:outputText value="#{courseWizard.course.climb}" styleClass="outputLabel"/>
+                                    
+                                    
+                                    <h:outputText value= "#{msg['forms.addcours.descent']} "/>
+                                    <h:outputText value="#{courseWizard.course.descent}" styleClass="outputLabel"/>
+                                    
+                                        <p:outputLabel value="#{msg['forms.addcours.payment']}*: "/>
+                                        <p:outputLabel rendered="#{aplicationControlerBean.testButtons or courseWizard.course.paymentRequired}" value="#{msg['buttons.yes']}"/>
+                                        <p:outputLabel rendered="#{aplicationControlerBean.testButtons or not courseWizard.course.paymentRequired}" value="#{msg['buttons.no']}"/>
+                                    
+
+                                    <h:outputText value= "#{msg['forms.addcours.officeplace']} "/>
+                                    <h:outputText value="#{courseWizard.course.cityOfRunOffice}" styleClass="outputLabel"/>
+
+                                    <h:outputText value= "#{msg['forms.addcours.officeaddress']} "/>
+                                    <h:outputText value="#{courseWizard.course.addressOfRunOffice}" styleClass="outputLabel"/>
+
+
+                                    <h:outputText value= "#{msg['forms.addcours.addinfo']} "/>
+                                    <h:outputText value="#{courseWizard.course.info}" styleClass="outputLabel"/>
+
+                                                    
+      
+
+                                    <h:outputText value= "#{msg['forms.addcours.organiser']} "/>
+                                    <h:outputText value="#{courseWizard.course.setOrganiserOfTheCourse(organiserOfTheCourse)}" styleClass="outputLabel"/>
+
+                                    <h:outputText value= "#{msg['forms.email']} "/>
+                                    <h:outputText value="#{courseWizard.course.email}" styleClass="outputLabel"/>
+
+                                    <h:outputText value= "#{msg['forms.phone']} "/>
+                                    <h:outputText value="#{courseWizard.course.phone}" styleClass="outputLabel"/>
+
+
+
+                                    <h:outputText />
+                                    <h:outputText />
+                                </p:panelGrid>
+
+
+                                <p:commandButton value="#{msg['buttons.submit']}" actionListener="#{courseWizard.save}" update="growl" process="@this" action="index"/>
+                                <!--action="index"-->
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

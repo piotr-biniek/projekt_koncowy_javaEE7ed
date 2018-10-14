@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./template.xhtml">
+
+        <ui:define name="content">
+
+            <h:body>
+                <h:form id="formRegister">
+
+<!--                    <p:growl id="growl" sticky="true" showDetail="true">
+                        <p:autoUpdate />
+                    </p:growl>-->
+                    <p:wizard flowListener="#{organiserWizard.onFlowProcess}" nextLabel="#{msg['buttons.next']}" backLabel="#{msg['buttons.back']}">
+                        <p:messages id="messages" showDetail="true" closable="true">
+                            <p:autoUpdate />
+                        </p:messages>
+                        <p:tab id="personal" title="#{msg['forms.registerorganiser.titles.organiser']} ">
+                            <p:panel header="#{msg['forms.registerorganiser.subtitles.organiser']} ">
+
+                                <h:panelGrid columns="3" width="800" columnClasses="label, label" >
+                                    <h:outputText   value="#{msg['forms.email']}/Login: *" />
+                                    <p:inputText id="email" value="#{organiserWizard.organiser.email}" required="true" label="Email"/>
+   <p:message for="email" />
+                                    
+                                    <h:outputLabel for="pwd1" value="#{msg['forms.password']}*: " />
+                                    <p:password id="pwd1" value="#{organiserWizard.organiser.password}" match="pwd2" label="Password 1" required="true"  feedback="true"/>
+   <p:message for="pwd1" />
+
+                                    <h:outputLabel for="pwd2" value="#{msg['forms.password2']}*: "  />
+                                    <p:password id="pwd2"  label="Password 2" required="true" />
+   <p:message for="pwd2" />
+
+                                    <h:outputText  value="#{msg['forms.registerorganiser.firmname']} " />
+                                    <p:inputText id="name" value="#{organiserWizard.organiser.organiserName}" required="true" label="Name"/>
+   <p:message for="name" />
+
+                                    <h:outputText value="#{msg['forms.phone']} *" />
+                                    <p:inputText value="#{organiserWizard.organiser.phone}" required="true" id="phone" >
+                                        <p:keyFilter regEx="/[0-9-]/i"/>
+                                    </p:inputText>
+                                       <p:message for="phone" />
+
+
+
+                                    <h:outputText value="#{msg['forms.skip']} " />
+                                    <h:selectBooleanCheckbox value="#{organiserWizard.skip}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="address" title="#{msg['forms.registerorganiser.titles.address']} ">
+                            <p:panel header="#{msg['forms.registerorganiser.subtitles.address']} ">
+                                <p:messages />
+                                <h:panelGrid columns="2" width="400" columnClasses="label, label">
+                                    <h:outputText value="#{msg['forms.registerorganiser.street']} " />
+                                    <p:inputText value="#{organiserWizard.organiser.adresStreet}" />
+
+                                    <h:outputText value="#{msg['forms.registerorganiser.postalcode']}" />
+                                    <p:inputMask value="#{organiserWizard.organiser.adresZipCode}" mask="99-999" />
+
+                                    <h:outputText value="#{msg['forms.registerorganiser.city']} " />
+                                    <p:inputText value="#{organiserWizard.organiser.adresCity}" />
+
+                                    <h:outputText value="#{msg['forms.skip']} " />
+                                    <h:selectBooleanCheckbox value="#{organiserWizard.skip}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="confirm" title="#{msg['forms.registerorganiser.titles.confirmation']} ">
+                            <p:panel header="#{msg['forms.registerorganiser.subtitles.confirmation']} ">
+                               
+                                <h:panelGrid  id="confirmation" columns="2" width="500px" border="" >
+                                        <h:outputText value="#{msg['forms.registerorganiser.firmname']} " />
+                                        <h:outputText value="#{organiserWizard.organiser.organiserName}" styleClass="outputLabel"/>
+                                        <h:outputText value="#{msg['forms.email']} " />
+                                        <h:outputText value="#{organiserWizard.organiser.email}" styleClass="outputLabel"/>
+                                   
+
+                                   
+                                        <h:outputText value="#{msg['forms.registerorganiser.street']} " />
+                                        <h:outputText value="#{organiserWizard.organiser.adresStreet}" styleClass="outputLabel"/>
+
+                                        <h:outputText value=" #{msg['forms.registerorganiser.postalcode']} " />
+                                        <h:outputText value="#{organiserWizard.organiser.adresZipCode}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="#{msg['forms.registerorganiser.city']} " />
+                                        <h:outputText value="#{organiserWizard.organiser.adresCity}" styleClass="outputLabel"/>
+                                   
+
+                                    
+
+                                        <h:outputText value="#{msg['forms.phone']} " />
+                                        <h:outputText value="#{organiserWizard.organiser.phone}" styleClass="outputLabel"/>
+
+
+
+                                       
+                                    </h:panelGrid>
+                                
+                                <div align="right">
+                                    <p:commandButton value="#{msg['buttons.submit']} "  action="#{organiserWizard.save()}"/>
+                                </div>
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

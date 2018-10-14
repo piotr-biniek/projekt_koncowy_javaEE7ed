@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="../template.xhtml">
+
+            <ui:define name="content">
+                <h3>#{msg['page.registerrunner']}</h3>
+                <h:form id="registerRunner">
+
+                    
+
+
+
+
+                    <!--                    <p:messages id="messages" showDetail="true" autoUpdate="true" />-->
+                    <h:panelGrid id="grid" columns="3" cellpadding="5">
+
+                        <h:outputLabel value="#{msg['forms.email']}/Login* :" />
+                        <p:inputText id="email" value="#{registrationBeanUser.runner.email}"  required="true" label="email"/>
+                         <p:message for="email" />
+
+
+                        <h:outputLabel for="pwd1" value="#{msg['forms.password']}*: " />
+                        <p:password id="pwd1" value="#{registrationBeanUser.runner.password}" match="pwd2" label="Password 1" required="true"  feedback="true"/>
+                         <p:message for="pwd1" />
+
+                        <h:outputLabel for="pwd2" value="#{msg['forms.password2']}*: "  />
+                        <p:password id="pwd2"  label="Password 2" required="true" />
+                         <p:message for="pwd2" />
+
+
+                        <h:outputLabel value="#{msg['forms.registerrunner.fname']}* :" />
+                        <p:inputText id="fname" value="#{registrationBeanUser.runner.firstName}" required="true" />
+                         <p:message for="fname" />
+
+
+                        <h:outputLabel value="#{msg['forms.registerrunner.lname']}* :" />
+                        <p:inputText id="lname" value="#{registrationBeanUser.runner.lastName}" required="true" />
+                         <p:message for="lname" />
+
+
+                        <h:outputLabel value="#{msg['forms.registerrunner.birthdate']}"/>
+                        <p:calendar id="birth" value="#{registrationBeanUser.runner.dateOfBirth}"  size="10" pattern="dd-MM-yyyy" mask="true" required="true" maxdate="#{courseWizard.today}"/>
+                         <p:message for="birth" />
+
+                        <h:outputLabel value="#{msg['forms.phone']}* :" />
+                        <p:inputText id="phone" value="#{registrationBeanUser.runner.phone}" required="true">
+                            <p:keyFilter regEx="/[0-9-]/i"/>
+                        </p:inputText> 
+                         <p:message for="phone" />
+
+                        <p:outputLabel value="#{msg['forms.registerrunner.sex']}:"/>
+                        <p:selectOneMenu value="#{registrationBeanUser.runner.isMale}" id="sex" label="Płeć">
+                            <f:selectItem itemLabel="#{msg['forms.sex.male']}" itemValue="true"/>
+                            <f:selectItem itemLabel="#{msg['forms.sex.female']}" itemValue="false"/>
+
+                        </p:selectOneMenu>
+                        <p></p>
+
+                        <p:commandButton value="Anuluj!" action="/index" immediate="true"/>
+                        <p:commandButton id="continue" value="Continue"
+                                         action="#{registrationBeanUser.next()}" update="grid"/>
+
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>
+
+<!--                                <f:validator validatorId="emailValidator"/>-->

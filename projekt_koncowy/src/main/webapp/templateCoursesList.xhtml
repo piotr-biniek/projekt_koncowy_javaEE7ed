@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <p:dataTable id="courstable" var="iteratorCourse" value="#{pageBeanCourses.allCourses}" rows="10"
+                 paginator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="10,20,50"  > <!--sortBy="#{iteratorCourse.dateOfStart}" sortOrder="ascending"-->
+        <p:column headerText="#{msg['forms.addcours.name']}"  sortBy="#{iteratorCourse.name}" >
+            <h:outputText value="#{iteratorCourse.name}" />
+        </p:column>
+
+        <p:column headerText="#{msg['forms.addcours.distance']}"  sortBy="#{iteratorCourse.distance}">
+            <h:outputText value="#{iteratorCourse.distance}" />
+        </p:column>
+
+
+        <p:column headerText="#{msg['forms.addcours.startday']}" sortBy="#{iteratorCourse.dateOfStart}">
+            <h:outputText value="#{pageBeanCourses.getOutputDateTime(iteratorCourse.dateOfStart)}" />
+
+        </p:column>
+
+        <p:column headerText="#{msg['forms.addcours.climb']}">
+            <h:outputText value="#{iteratorCourse.climb}" />
+        </p:column>                        
+
+        <p:column headerText="#{msg['forms.addcours.cityofcours']}">
+            <h:outputText value="#{iteratorCourse.cityOfCours}" />
+        </p:column>
+
+        <p:column headerText="#{msg['forms.actions']}">
+
+            <p:commandButton value="#{msg['buttons.details']}" action="#{pageBeanCourses.setViewed(iteratorCourse)}"/>
+
+            <!--Przygotowane na dalsze rozserzanie-->
+            <p:commandButton value="#{msg['buttons.signfor']}" action="index" rendered="false"/>
+
+            <p:commandButton value="#{msg['buttons.resign']}" action="pageBeanCourses.resign(iteratorCourse)" rendered="false" styleClass="ui-confirmdialog-no"/>
+
+            <p:commandButton value="#{msg['buttons.edit']}" action="#{pageBeanCourses.editCourse(iteratorCourse)}" rendered="false"/>
+
+            <p:commandButton value="#{msg['buttons.registerrunner']}" type="button" rendered="false" />
+
+            <p:commandButton value="#{msg['buttons.delete']}" icon="ui-icon-close" update="courstable" action="#{pageBeanCourses.delete(iteratorCourse)}" rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Administrator')}" >
+                <p:confirm header="#{msg['messages.confirmdelete.title']}" message="#{msg['messages.confirmdelete.text']}" icon="ui-icon-alert" />
+            </p:commandButton>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <!--<p:ajax event=""-->
+                <p:commandButton value="#{msg['buttons.yes']}" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{msg['buttons.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+            </p:confirmDialog>
+            <!--Przygotowane na dalsze rozserzanie-->
+
+        </p:column>                        
+    </p:dataTable>
+
+</ui:composition>
+
+<!--
+
+  <p:calendar value="#{iteratorCourse.dateOfStart}"  pattern="dd/MM/yyyy HH:mm" />
+
+
+                        <f:facet name="paginatorTopLeft">
+                            <p:commandButton type="button" icon="fa fa-sync" />
+                        </f:facet>
+
+                        <f:facet name="paginatorBottomRight">
+                            <p:commandButton type="button" icon="fa fa-cloud-upload" />
+                        </f:facet>-->

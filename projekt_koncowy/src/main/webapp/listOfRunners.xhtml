@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body> 
+       
+        
+        
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+            
+                <h:form>
+                    <p:growl id="growl" showDetail="true" sticky="false" >
+                        <p:autoUpdate />
+
+                    </p:growl>
+
+                    <p:dataTable id="runnerstable" var="iteratorRunner" value="#{dtListOfRunners.allRunners2}" rows="10"
+                                  paginator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                  rowsPerPageTemplate="10,20,50">
+                        <p:column headerText="#{msg['forms.registerrunner.fname']}">
+                            <h:outputText value="#{iteratorRunner.firstName}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['forms.registerrunner.lname']}">
+                            <h:outputText value="#{iteratorRunner.lastName}" />
+                        </p:column>
+
+
+                        <p:column headerText="#{msg['forms.runner.birthyear']}">
+                            <h:outputText value="#{dtListOfRunners.runnerControler.birthYear(iteratorRunner.dateOfBirth)}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['forms.registerrunner.sex']}">
+                            <h:outputText value="#{msg['forms.runner.sexfemale']}" rendered="#{aplicationControlerBean.testButtons or !iteratorRunner.isMale}" />
+                             <h:outputText value="#{msg['forms.runner.sexmale']}" rendered="#{aplicationControlerBean.testButtons or iteratorRunner.isMale}" />
+                        </p:column>                        
+
+
+                        <p:column headerText="#{msg['forms.actions']}">
+                            <p:commandButton value="#{msg['buttons.details']}" action="#{dtListOfRunners.setViewed(iteratorRunner)}"/>
+                        
+<!--                            <p:commandButton value="#{msg['buttons.edit']}" action="#{dtListOfRunners.editRunner(iteratorRunner)}"/>
+                     
+
+                            <p:commandButton value="#{msg['buttons.delete']}" update="runnerstable" action="#{dtListOfRunners.delete(iteratorRunner)}" >
+                                <p:confirm header="#{msg['messages.confirmdelete.title']}" message="#{msg['messages.confirmdelete.text']}" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                                <p:ajax event=""
+                                <p:commandButton value="#{msg['buttons.yes']}" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="#{msg['buttons.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                
+                            </p:confirmDialog>
+-->
+
+                        </p:column>                        
+
+                        <!--
+                        
+                          <p:calendar value="#{iteratorRunner.dateOfStart}"  pattern="dd/MM/yyyy HH:mm" />
+                        
+                        
+                                                <f:facet name="paginatorTopLeft">
+                                                    <p:commandButton type="button" icon="fa fa-sync" />
+                                                </f:facet>
+                        
+                                                <f:facet name="paginatorBottomRight">
+                                                    <p:commandButton type="button" icon="fa fa-cloud-upload" />
+                                                </f:facet>-->
+                    </p:dataTable>
+
+
+
+
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

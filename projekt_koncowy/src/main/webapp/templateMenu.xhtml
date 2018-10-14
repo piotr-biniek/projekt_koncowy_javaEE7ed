@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="menu">
+
+
+
+        <p:panelMenu stateful="false"   style="width:200px" rendered="true" >
+            <p:submenu label="#{msg['menu.runner']}" >
+                <p:menuitem  value="#{msg['menu.runner.register']}" id="registerRunner" action="registerUser" icon="ui-icon-disk" />
+                <p:menuitem value="#{msg['menu.runner.mycourses']}" action="/listOfMyCourses"  
+                            rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Runner')}"/>
+                
+<!--                <p:submenu label="#{msg['menu.runner.mycourses']}"   rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Runner')}" >
+                    <p:menuitem value="#{msg['menu.runner.mycourses.future']}" action="/listOfMyCourses" />
+                    <p:menuitem value="#{msg['menu.runner.mycourses.history']}" id="runnerHistory"  icon="ui-icon-disk" />
+                </p:submenu>-->
+            </p:submenu>
+            <p:submenu label="#{msg['menu.organiser']}" >
+
+                <p:menuitem value="#{msg['menu.organiser.register']}"  id="addOrganizer" action="/addOrganiser" icon="ui-icon-disk" />
+                <p:menuitem value="#{msg['menu.organiser.newcours']}"  id="addRun" action="/addCourse" rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Organiser')}" icon="ui-icon-disk" />
+                <p:menuitem value="#{msg['menu.organiser.mycourses']}"  action="/listOfMyCourses" rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Organiser')}"/>
+                <p:menuitem value="#{msg['menu.listoforganisers']}"   action="/listOfOrganisers" />
+            </p:submenu>
+            <p:separator />
+            <p:submenu label="#{msg['menu.courses']}"  >
+
+                <p:menuitem value="#{msg['menu.courses.list']}" action="/listOfCourses"  icon="ui-icon-home" />
+                <p:menuitem value="#{msg['menu.courses.calendar']}"  id="Calendar" action="/courseTimeline"  icon="ui-icon-document" />
+
+
+            </p:submenu>
+            <p:separator />
+
+            <p:submenu label="#{msg['menu.admintools']}" rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Administrator')}">
+                <p:menuitem value="#{msg['menu.registeradmin']}"  action="/addAdmin"  />
+                <p:menuitem value="#{msg['menu.listofrunners']}"  action="/listOfRunners" />
+                <p:menuitem value="#{msg['menu.listoforganisers']}"   action="/listOfOrganisers" />
+            </p:submenu>
+
+            <!--                            <p:separator />
+                                        <p:submenu label="#{msg['menu.listoforganisers']}" rendered="#{aplicationControlerBean.testButtons or request.isUserInRole('Runner')}"  >
+                                           
+                                        </p:submenu>-->
+
+
+
+        </p:panelMenu >
+
+    </h:form>
+</ui:composition>

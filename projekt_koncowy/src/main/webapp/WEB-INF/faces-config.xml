@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:p="http://primefaces.org/ui">
+
+
+    <application>
+        <action-listener>
+            pl.java.biniek.exception.exlistenerandloggerfrontend.WebExceptionListener
+            
+        </action-listener>
+        <locale-config>
+            <default-locale>pl</default-locale>
+            <supported-locale>pl</supported-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>i18n.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <message-bundle>
+            i18n.jsf_messages
+        </message-bundle>
+ 
+    </application>
+   
+   <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/error/failure.xhtml</to-view-id>
+      
+        </navigation-case>    
+       <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error/error.xhtml</to-view-id>
+     
+        </navigation-case> 
+        <navigation-case>
+                 <from-outcome>*</from-outcome>
+                <from-outcome>glowna</from-outcome>
+                <to-view-id>index.xhtml</to-view-id>
+                
+            </navigation-case>   
+</navigation-rule> 
+
+
+    
+</faces-config> 
+
+<!--  
+            <navigation-case>
+                 <from-outcome>*</from-outcome>
+                <from-outcome>glowna</from-outcome>
+                <to-view-id>index.xhtml</to-view-id>
+                
+            </navigation-case>
+        </navigation-rule>
+       
+       <navigation-rule>
+            <navigation-case>
+                <from-outcome>index</from-outcome>
+                 <from-outcome>*</from-outcome>
+                <to-view-id>index.xhtml</to-view-id>
+               </navigation-case>
+        </navigation-rule>   -->
+        
+  
+    
+<!--    OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+           <navigation-rule>
+            <navigation-case>
+                <from-outcome>registerOrganiser</from-outcome>
+                <to-view-id>./registerOrganiser/registerOrganiser.xhtml</to-view-id>
+                <redirect />
+                           </navigation-case>
+        </navigation-rule>       
+        
+        
+   <navigation-rule>
+    <navigation-case>
+        <from-outcome>registerRunner</from-outcome>
+        <to-view-id>./registerRunner/registerRunner.xhtml</to-view-id>
+        <redirect />
+                   </navigation-case>
+</navigation-rule>  -->
+   
+<!--        <navigation-rule>
+    <from-view-id>/registerRunner.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>confirmation</from-outcome>
+        <to-view-id>/confirmation.xhtml</to-view-id>
+        <redirect />
+    </navigation-case>
+</navigation-rule>
+-->
+        
+<!--        <navigation-rule>
+        <from-view-id>/lista.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>edytuj</from-outcome>
+            <to-view-id>/edytuj.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+-->
+<!--        zasada nawiga\cyjna na napis glowna-->
+<!--        <navigation-rule>
+    <navigation-case>
+        <from-outcome>glowna</from-outcome>
+        <to-view-id>/index.xhtml</to-view-id>
+        <redirect />
+                   </navigation-case>
+</navigation-rule>
+-->
+ 
+<!--bo 2 rzadania rzeby zmienic adres na wlascuwy-->
